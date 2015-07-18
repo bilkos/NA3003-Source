@@ -1,4 +1,12 @@
-﻿Imports System.IO
+﻿'Programming: Boris Bilc
+'e-mail: boris.bilc@gmail.com
+'Company: 2B geoinformatika, d.o.o., Ljubljana, Slovenia
+'Menthor: Andrej Bilc
+'Copyright 2015
+'This application is private property.
+'Please do not copy or distribute withour sunding a prior notification to application author.
+
+Imports System.IO
 Imports System.Threading
 
 Public Class Form1
