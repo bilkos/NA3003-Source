@@ -1,0 +1,19 @@
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\Docs\Changelog.txt
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\NA3003 Fieldbook.exe.config
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\NA3003 Fieldbook.exe.manifest
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\NA3003 Fieldbook.application
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\NA3003 Fieldbook.exe
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\NA3003 Fieldbook.pdb
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\NA3003 Fieldbook.xml
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003_Fieldbook.AboutBox1.resources
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003_Fieldbook.Form1.resources
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003_Fieldbook.HelpForm.resources
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003_Fieldbook.Resources.resources
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.vbproj.GenerateResource.Cache
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.exe.manifest
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.application
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.exe
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.xml
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.pdb
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\Docs\HelpGuide.rtf
+X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.vbprojResolveAssemblyReference.cache

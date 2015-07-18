@@ -1,0 +1,15 @@
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\bin\Debug\NA3003 Transfer.exe.config
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\bin\Debug\NA3003 Transfer.exe
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\bin\Debug\NA3003 Transfer.pdb
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\bin\Debug\NA3003 Transfer.xml
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003_Transfer.frmMain.resources
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003_Transfer.Resources.resources
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.vbproj.GenerateResource.Cache
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.exe
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.xml
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.pdb
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\bin\Debug\NA3003 Transfer.exe.manifest
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\bin\Debug\NA3003 Transfer.application
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.exe.manifest
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.application
+X:\VS Projects\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003_Transfer.AboutBox1.resources
