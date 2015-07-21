@@ -31,12 +31,15 @@ Partial Class Form1
         Me.cmbTip = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.cbComma = New System.Windows.Forms.CheckBox()
+        Me.lblDataStatus = New System.Windows.Forms.Label()
+        Me.BtnSettings = New System.Windows.Forms.Button()
         Me.btnHelp = New System.Windows.Forms.Button()
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.BtnSave = New System.Windows.Forms.Button()
         Me.BtnCreate = New System.Windows.Forms.Button()
         Me.BtnBrowse = New System.Windows.Forms.Button()
-        Me.lblDataStatus = New System.Windows.Forms.Label()
+        Me.cbCalibration = New System.Windows.Forms.CheckBox()
+        Me.cb1Staff = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'Label1
@@ -65,7 +68,7 @@ Partial Class Form1
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RtbKonzola.BackColor = System.Drawing.SystemColors.MenuText
         Me.RtbKonzola.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(238, Byte))
-        Me.RtbKonzola.ForeColor = System.Drawing.Color.Silver
+        Me.RtbKonzola.ForeColor = System.Drawing.Color.DarkGray
         Me.RtbKonzola.Location = New System.Drawing.Point(12, 94)
         Me.RtbKonzola.Name = "RtbKonzola"
         Me.RtbKonzola.ReadOnly = True
@@ -81,7 +84,7 @@ Partial Class Form1
         'cmbTip
         '
         Me.cmbTip.FormattingEnabled = True
-        Me.cmbTip.Items.AddRange(New Object() {"Standard Report", "GURS Report", "CSV", "CSV - Measure Only"})
+        Me.cmbTip.Items.AddRange(New Object() {"Standard Report", "Calculated Report", "CSV", "CSV - Measure Only"})
         Me.cmbTip.Location = New System.Drawing.Point(12, 63)
         Me.cmbTip.Name = "cmbTip"
         Me.cmbTip.Size = New System.Drawing.Size(126, 21)
@@ -98,12 +101,33 @@ Partial Class Form1
         '
         'cbComma
         '
-        Me.cbComma.Location = New System.Drawing.Point(144, 63)
+        Me.cbComma.Location = New System.Drawing.Point(335, 56)
         Me.cbComma.Name = "cbComma"
-        Me.cbComma.Size = New System.Drawing.Size(116, 21)
+        Me.cbComma.Size = New System.Drawing.Size(115, 32)
         Me.cbComma.TabIndex = 3
         Me.cbComma.Text = "Comma as decimal"
         Me.cbComma.UseVisualStyleBackColor = True
+        '
+        'lblDataStatus
+        '
+        Me.lblDataStatus.AutoSize = True
+        Me.lblDataStatus.Location = New System.Drawing.Point(335, 28)
+        Me.lblDataStatus.Name = "lblDataStatus"
+        Me.lblDataStatus.Size = New System.Drawing.Size(45, 13)
+        Me.lblDataStatus.TabIndex = 9
+        Me.lblDataStatus.Text = "No data"
+        '
+        'BtnSettings
+        '
+        Me.BtnSettings.Image = Global.NA3003_Fieldbook.My.Resources.Resources.System_22px
+        Me.BtnSettings.Location = New System.Drawing.Point(727, 56)
+        Me.BtnSettings.Name = "BtnSettings"
+        Me.BtnSettings.Size = New System.Drawing.Size(85, 32)
+        Me.BtnSettings.TabIndex = 10
+        Me.BtnSettings.Text = "Settings"
+        Me.BtnSettings.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BtnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.BtnSettings.UseVisualStyleBackColor = True
         '
         'btnHelp
         '
@@ -133,9 +157,9 @@ Partial Class Form1
         'BtnSave
         '
         Me.BtnSave.Image = Global.NA3003_Fieldbook.My.Resources.Resources.Disquette_18px
-        Me.BtnSave.Location = New System.Drawing.Point(402, 56)
+        Me.BtnSave.Location = New System.Drawing.Point(583, 56)
         Me.BtnSave.Name = "BtnSave"
-        Me.BtnSave.Size = New System.Drawing.Size(97, 32)
+        Me.BtnSave.Size = New System.Drawing.Size(92, 32)
         Me.BtnSave.TabIndex = 5
         Me.BtnSave.Text = "Save to File"
         Me.BtnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -145,9 +169,9 @@ Partial Class Form1
         'BtnCreate
         '
         Me.BtnCreate.Image = Global.NA3003_Fieldbook.My.Resources.Resources.Chalkboard2_21px
-        Me.BtnCreate.Location = New System.Drawing.Point(266, 56)
+        Me.BtnCreate.Location = New System.Drawing.Point(456, 56)
         Me.BtnCreate.Name = "BtnCreate"
-        Me.BtnCreate.Size = New System.Drawing.Size(130, 32)
+        Me.BtnCreate.Size = New System.Drawing.Size(121, 32)
         Me.BtnCreate.TabIndex = 4
         Me.BtnCreate.Text = "Create Fieldbook"
         Me.BtnCreate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -159,27 +183,41 @@ Partial Class Form1
         Me.BtnBrowse.Image = Global.NA3003_Fieldbook.My.Resources.Resources.Folder_22px
         Me.BtnBrowse.Location = New System.Drawing.Point(254, 18)
         Me.BtnBrowse.Name = "BtnBrowse"
-        Me.BtnBrowse.Size = New System.Drawing.Size(88, 32)
+        Me.BtnBrowse.Size = New System.Drawing.Size(75, 32)
         Me.BtnBrowse.TabIndex = 0
         Me.BtnBrowse.Text = "Browse"
         Me.BtnBrowse.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BtnBrowse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.BtnBrowse.UseVisualStyleBackColor = True
         '
-        'lblDataStatus
+        'cbCalibration
         '
-        Me.lblDataStatus.AutoSize = True
-        Me.lblDataStatus.Location = New System.Drawing.Point(505, 66)
-        Me.lblDataStatus.Name = "lblDataStatus"
-        Me.lblDataStatus.Size = New System.Drawing.Size(45, 13)
-        Me.lblDataStatus.TabIndex = 9
-        Me.lblDataStatus.Text = "No data"
+        Me.cbCalibration.Enabled = False
+        Me.cbCalibration.Location = New System.Drawing.Point(144, 56)
+        Me.cbCalibration.Name = "cbCalibration"
+        Me.cbCalibration.Size = New System.Drawing.Size(75, 32)
+        Me.cbCalibration.TabIndex = 11
+        Me.cbCalibration.Text = "Calibration"
+        Me.cbCalibration.UseVisualStyleBackColor = True
+        '
+        'cb1Staff
+        '
+        Me.cb1Staff.Enabled = False
+        Me.cb1Staff.Location = New System.Drawing.Point(225, 56)
+        Me.cb1Staff.Name = "cb1Staff"
+        Me.cb1Staff.Size = New System.Drawing.Size(104, 32)
+        Me.cb1Staff.TabIndex = 12
+        Me.cb1Staff.Text = "Single rod meas."
+        Me.cb1Staff.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(824, 482)
+        Me.Controls.Add(Me.cb1Staff)
+        Me.Controls.Add(Me.cbCalibration)
+        Me.Controls.Add(Me.BtnSettings)
         Me.Controls.Add(Me.lblDataStatus)
         Me.Controls.Add(Me.btnHelp)
         Me.Controls.Add(Me.cbComma)
@@ -216,5 +254,8 @@ Partial Class Form1
     Friend WithEvents cbComma As System.Windows.Forms.CheckBox
     Friend WithEvents btnHelp As System.Windows.Forms.Button
     Friend WithEvents lblDataStatus As System.Windows.Forms.Label
+    Friend WithEvents BtnSettings As System.Windows.Forms.Button
+    Friend WithEvents cbCalibration As System.Windows.Forms.CheckBox
+    Friend WithEvents cb1Staff As System.Windows.Forms.CheckBox
 
 End Class

@@ -14,14 +14,28 @@ Public Class Form1
     Dim checkFile As Boolean
     Dim codeNum As Integer
 
+    Dim lataAid As Integer = My.Settings.LataAid
+    Dim tempLataNullA As Double = My.Settings.LataATempNull
+    Dim alphaA As Double = My.Settings.LataAalfa
+    Dim m0A As Double = My.Settings.LataAm0
+    Dim lataBid As Integer = My.Settings.LataBid
+    Dim tempLataNullB As Double = My.Settings.LataBTempNull
+    Dim alphaB As Double = My.Settings.LataBalfa
+    Dim m0B As Double = My.Settings.LataBm0
+
+    Dim prevWi As String
+    Dim rodNr As Integer
+    Dim tempLata As Double
+    Dim ptNum As Integer
+    Dim ptNumPrev As Integer
     Dim dist As Double
-    Dim heigthReadingMe As Double
-    Dim heigthReadingB1 As Double
-    Dim heigthReadingF1 As Double
-    Dim heigthReadingF2 As Double
-    Dim heigthReadingB2 As Double
-    Dim heigthReadingIn As Double
-    Dim heigthReadingSo As Double
+    Dim heightReadingMe As Double
+    Dim heightReadingB1 As Double
+    Dim heightReadingF1 As Double
+    Dim heightReadingF2 As Double
+    Dim heightReadingB2 As Double
+    Dim heightReadingIn As Double
+    Dim heightReadingSo As Double
     Dim sdiff As Double
     Dim ssDiff As Double
     Dim distDiff As Double
@@ -32,23 +46,64 @@ Public Class Form1
 
     'On form load
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        cmbTip.SelectedItem = "Standard Report"
         BtnSave.Enabled = False
         BtnCreate.Enabled = False
         cmbTip.Enabled = False
+        cbCalibration.Checked = My.Settings.UseCorrections
+        cb1Staff.Checked = My.Settings.OneStaff
+        cmbTip.SelectedItem = My.Settings.LastMethod
     End Sub
 
     Private Sub btnHelp_Click(sender As Object, e As EventArgs) Handles btnHelp.Click
         HelpForm.Show()
-
     End Sub
 
+    Private Sub NextRod()
+        If cb1Staff.Checked = False Then
+            If rodNr = lataAid Then
+                rodNr = lataBid
+            Else
+                rodNr = lataAid
+            End If
+        End If
+    End Sub
+
+    Private Sub BtnSettings_Click(sender As Object, e As EventArgs) Handles BtnSettings.Click
+        SettingsForm.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub cmbTip_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTip.SelectedIndexChanged
+        If cmbTip.SelectedItem = "Calculated Report" Then
+            My.Settings.Reload()
+            cbCalibration.Checked = My.Settings.UseCorrections
+            cbCalibration.Enabled = True
+            cb1Staff.Checked = My.Settings.OneStaff
+            cb1Staff.Enabled = True
+        Else
+            cbCalibration.Enabled = False
+            cb1Staff.Enabled = False
+        End If
+        My.Settings.LastMethod = cmbTip.SelectedItem
+        My.Settings.Save()
+    End Sub
+
+    Private Sub cbCalibration_CheckedChanged(sender As Object, e As EventArgs) Handles cbCalibration.CheckedChanged
+        My.Settings.UseCorrections = cbCalibration.Checked
+        My.Settings.Save()
+    End Sub
+
+    Private Sub cb1Staff_CheckedChanged(sender As Object, e As EventArgs) Handles cb1Staff.CheckedChanged
+        My.Settings.OneStaff = cb1Staff.Checked
+        My.Settings.Save()
+    End Sub
+    
     'On Save button click
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles BtnSave.Click
         'Set filename to original filename without extension
         SaveFileDialog1.FileName = Path.GetFileNameWithoutExtension(OpenFileDialog1.FileName)
         'If we created text format fbk, then save as *.TXT
-        If cmbTip.SelectedItem = "Standard Report" Or cmbTip.SelectedItem = "GURS Report" Then
+        If cmbTip.SelectedItem = "Standard Report" Or cmbTip.SelectedItem = "Calculated Report" Then
             SaveFileDialog1.Filter = "NA3003 Fieldbook|*.TXT"
             SaveFileDialog1.DefaultExt = "*.TXT"
             If SaveFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
@@ -103,7 +158,8 @@ Public Class Form1
             RtbKonzola.Clear()
             If cmbTip.SelectedItem = "Standard Report" Then
                 RtbKonzola.ForeColor = Color.LimeGreen
-            ElseIf cmbTip.SelectedItem = "GURS Report" Then
+            ElseIf cmbTip.SelectedItem = "Calculated Report" Then
+
                 RtbKonzola.ForeColor = Color.Orange
             ElseIf cmbTip.SelectedItem = "CSV" Or cmbTip.SelectedItem = "CSV - Measure Only" Then
                 RtbKonzola.ForeColor = Color.DarkTurquoise
@@ -122,8 +178,13 @@ Public Class Form1
                     If cmbTip.SelectedItem = "Standard Report" Then
                         RtbKonzola.AppendText("+++++ Leica NA3003 Fieldbook - Standard v1.1 +++++")
                     End If
-                    If cmbTip.SelectedItem = "GURS Report" Then
-                        RtbKonzola.AppendText("+++++ Leica NA3003 Fieldbook - GURS v1.1 +++++")
+                    If cmbTip.SelectedItem = "Calculated Report" Then
+                        RtbKonzola.AppendText("+++++ Leica NA3003 Fieldbook - Calc v1.3 +++++")
+                        If My.Settings.UseCorrections = True Then
+                            RtbKonzola.AppendText(vbCrLf & "Height readings calculated using rod calibrations" & _
+                                                  vbCrLf & "Rod A: " & My.Settings.LataAid & " alpha: " & My.Settings.LataAalfa.ToString & " m0: " & My.Settings.LataAm0.ToString & _
+                                                  vbCrLf & "Rod B: " & My.Settings.LataBid & " alpha: " & My.Settings.LataBalfa.ToString & " m0: " & My.Settings.LataBm0.ToString)
+                        End If
                     End If
                     If cmbTip.SelectedItem = "CSV" Then
                         RtbKonzola.AppendText("+++++; Leica; NA3003; Fieldbook; - CSV; v1.1; +++++")
@@ -144,7 +205,7 @@ Public Class Form1
                 RtbKonzola.Text = Replace(RtbKonzola.Text, ".", ",")
             End If
             lblDataStatus.Text = "File NOT saved."
-            MsgBox("Export to '" & cmbTip.SelectedItem & "' done." & vbCrLf & "Don't forget to save.", MsgBoxStyle.Information, "Create Fieldbook")
+            MsgBox("Fieldbook '" & cmbTip.SelectedItem & "' is done." & vbCrLf & vbCrLf & "Don't forget to save.", MsgBoxStyle.Information, "Create Fieldbook")
         Else
             RtbKonzola.Clear()      'clear rtb
             RtbKonzola.AppendText("No file selected...") 'show error message
@@ -162,8 +223,8 @@ Public Class Form1
         If cmbTip.SelectedItem = "Standard Report" Then
             ExportStandard(wordIndex, data)
 
-        ElseIf cmbTip.SelectedItem = "GURS Report" Then
-            ExportGURS(wordIndex, data)
+        ElseIf cmbTip.SelectedItem = "Calculated Report" Then
+            ExportCalc(wordIndex, data)
 
         ElseIf cmbTip.SelectedItem = "CSV" Then
             ExportCsv(wordIndex, data)
@@ -172,6 +233,251 @@ Public Class Form1
             ExportCsvMeas(wordIndex, data)
 
         End If
+    End Sub
+
+    Private Function StaffReading(ByVal heightReading As Double)
+        Dim calcHeight As Double
+        My.Settings.Reload()
+        If My.Settings.UseCorrections = True Then
+            'If corrections are enabled read values
+            lataAid = My.Settings.LataAid
+            tempLataNullA = My.Settings.LataATempNull
+            alphaA = My.Settings.LataAalfa
+            m0A = My.Settings.LataAm0
+            lataBid = My.Settings.LataBid
+            tempLataNullB = My.Settings.LataBTempNull
+            alphaB = My.Settings.LataBalfa
+            m0B = My.Settings.LataBm0
+            'Let's calculate corrected rod heght reading, depending on which rod is beeing read
+            If rodNr = lataAid Then
+                calcHeight = ((alphaA * (tempLata - tempLataNullA) * 0.000001) + (1 + (m0A * 0.000001))) * heightReading
+            ElseIf rodNr = lataBid Then
+                calcHeight = ((alphaB * (tempLata - tempLataNullB) * 0.000001) + (1 + (m0A * 0.000001))) * heightReading
+            End If
+        Else
+            'Else we just output height values
+            calcHeight = heightReading
+        End If
+        Return calcHeight
+    End Function
+
+    'Export subroutine if cmbTip is "GURS"
+    Private Sub ExportCalc(ByVal wi As String, ByVal data As String)
+
+        Select Case wi
+            Case 410 To 419 'Measuring info or Code line
+                If data = "+?......1" Then
+                    RtbKonzola.AppendText(vbCrLf & "********" & vbCrLf & "Metoda: BF")
+                    GrHt = 0
+                    GrHtPrev = 0
+                    heightReadingB1 = 0
+                    heightReadingF1 = 0
+                    heightReadingF2 = 0
+                    heightReadingB2 = 0
+
+                ElseIf data = "+?......2" Then
+                    RtbKonzola.AppendText(vbCrLf & "********" & vbCrLf & "Metoda: BFFB")
+                    GrHt = 0
+                    GrHtPrev = 0
+                    heightReadingB1 = 0
+                    heightReadingF1 = 0
+                    heightReadingF2 = 0
+                    heightReadingB2 = 0
+
+                ElseIf data = "+!....331" Then
+                    RtbKonzola.AppendText(vbCrLf & "Ponovitev: B1")
+                    heightReadingB1 = 0
+                    heightReadingF1 = 0
+                    heightReadingF2 = 0
+                    heightReadingB2 = 0
+                    If prevWi = "335" Then
+                        NextRod()
+                    End If
+
+                ElseIf data = "+!....332" Then
+                    RtbKonzola.AppendText(vbCrLf & "Ponovitev: F1")
+                    heightReadingF1 = 0
+                    heightReadingF2 = 0
+                    heightReadingB2 = 0
+
+                ElseIf data = "+!....336" Then
+                    RtbKonzola.AppendText(vbCrLf & "Ponovitev: F2")
+                    heightReadingF2 = 0
+                    heightReadingB2 = 0
+
+                ElseIf data = "+!....335" Then
+                    RtbKonzola.AppendText(vbCrLf & "Ponovitev: B2")
+                    heightReadingB2 = 0
+                    GrHt = GrHtPrev
+
+                Else
+                    codeNum = Convert.ToInt32(data)
+                    If codeNum = 1 Then
+                        'do nothing - old code commented bellow
+                        'RtbKonzola.AppendText("Temperatura: ")
+                    ElseIf codeNum = 10 Then    'Koda 10 - 3 podatki (poligon, par lat, datum)
+                        RtbKonzola.AppendText(vbCrLf & "Code 10 (Info)")
+                    ElseIf codeNum = 30 Then    'Koda 30 - 4 podatki (čas, temperatura, vreme, pogoji)
+                        RtbKonzola.AppendText(vbCrLf & "Code 30 (Conditions)")
+                    ElseIf codeNum = 33 Then    'Koda 33 - 2 podatka (par lat, lata začetek/konec)
+                        RtbKonzola.AppendText(vbCrLf & "Code 33 (Staffs)")
+                    Else                        'Ostale kode - 1 do 4 podatki
+                        RtbKonzola.AppendText(vbCrLf & "Koda " & codeNum.ToString)
+                    End If
+                End If
+
+            Case "42."  'Code
+                Dim numData As Integer
+                numData = Convert.ToInt32(data)
+                If codeNum = 1 Then ' koda 1 za temperaturo - info 1
+                    'do nothing - old code commented bellow
+                    tempLata = Convert.ToDouble(numData) / 10
+                    'RtbKonzola.AppendText(Format(tempT, "0.0").ToString)
+                ElseIf codeNum = 10 Then    ' koda 10: številka poligona - info 1
+                    RtbKonzola.AppendText(" poligon: " & numData.ToString)
+                ElseIf codeNum = 30 Then    ' koda 30: čas vnosa - info 1
+                    RtbKonzola.AppendText(" time: " & numData.ToString)
+                ElseIf codeNum = 33 Then    ' koda 33: številka para lat - info 1
+                    RtbKonzola.AppendText(" st.pair: " & numData.ToString)
+                Else                        ' sicer izvozimo običajno Info1
+                    RtbKonzola.AppendText(" Info1: " & numData.ToString)
+                End If
+
+            Case "43."  ' Code: Info2
+                Dim numData As Integer
+                numData = Convert.ToInt32(data)
+                If codeNum = 10 Then        ' koda 10: št. para lat - info 2
+                    RtbKonzola.AppendText(" staffs: " & numData.ToString)
+                ElseIf codeNum = 30 Then    ' koda 30: temperatura - info 2
+                    RtbKonzola.AppendText(" temp: " & numData.ToString)
+                ElseIf codeNum = 33 Then    ' koda 33: lata na začetku/koncu vlaka - info 2
+                    RtbKonzola.AppendText(" staff: " & numData.ToString & vbCrLf)
+                    rodNr = numData
+                    prevWi = wi
+                Else                        ' sicer izvozimo običajno Info2
+                    RtbKonzola.AppendText(" Info2: " & numData.ToString)
+                End If
+
+            Case "44."  ' Code: Info3
+                Dim numData As Integer
+                numData = Convert.ToInt32(data)
+                If codeNum = 10 Then    ' koda 10: datum meritve - info 3
+                    RtbKonzola.AppendText(" date: " & numData.ToString)
+                ElseIf codeNum = 30 Then    ' koda 30: vremenski pogoji - info 3
+                    RtbKonzola.AppendText(" weather: " & numData.ToString)
+                Else                        ' sicer izvozimo običajno Info3
+                    RtbKonzola.AppendText(" Info3: " & numData.ToString)
+                End If
+
+            Case "45."  ' Code: Info4
+                Dim numData As Integer
+                numData = Convert.ToInt32(data)
+                If codeNum = 30 Then        ' koda 30: pogoji niveliranja
+                    RtbKonzola.AppendText(" condit.: " & numData.ToString)
+                Else                        ' sicer izvozimo običajno Info4
+                    RtbKonzola.AppendText(" Info4: " & numData.ToString)
+                End If
+
+            Case 110 To 119 'Staff id
+                ptNum = Convert.ToInt32(data)
+                RtbKonzola.AppendText(vbCrLf & String.Format("{0,-8}", ptNum.ToString))
+
+            Case "32."  'Distance to staff
+                dist = Convert.ToDouble(data) / 1000
+                RtbKonzola.AppendText(" D: " & String.Format("{0,8}", Format(dist, "0.000").ToString))
+
+            Case "330"  'Staff reading in MEAS ONLY
+                heightReadingMe = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(" ME: " & String.Format("{0,8}", Format(heightReadingMe, "0.00000").ToString))
+
+            Case "331"  'Staff reading, backsight / B1
+                If prevWi = "332" Then
+                    NextRod()
+                End If
+                If prevWi = "335" Then
+                    NextRod()
+                End If
+                If prevWi = "336" Then
+                    NextRod()
+                End If
+                heightReadingB1 = Convert.ToDouble(data) / 100000
+                heightReadingB1 = StaffReading(heightReadingB1)
+                RtbKonzola.AppendText(" B1: " & String.Format("{0,8}", Format(heightReadingB1, "0.00000").ToString) & " ******** Rod: " & rodNr & " T: " & tempLata.ToString)
+                prevWi = "331"
+
+            Case "332"  'Staff reading, foresight / F1
+                If prevWi = "331" Then
+                    NextRod()
+                End If
+                If prevWi = "335" Then
+                    NextRod()
+                End If
+                heightReadingF1 = Convert.ToDouble(data) / 100000
+                heightReadingF1 = StaffReading(heightReadingF1)
+                RtbKonzola.AppendText(" F1: ******** " & String.Format("{0,8}", Format(heightReadingF1, "0.00000").ToString) & " Rod: " & rodNr & " T: " & tempLata.ToString)
+                prevWi = "332"
+
+            Case "336"  'Staff reading, foresight / F2
+                If prevWi = "335" Then
+                    NextRod()
+                End If
+                heightReadingF2 = Convert.ToDouble(data) / 100000
+                heightReadingF2 = StaffReading(heightReadingF2)
+                RtbKonzola.AppendText(" F2: ******** " & String.Format("{0,8}", Format(heightReadingF2, "0.00000").ToString) & " Rod: " & rodNr & " T: " & tempLata.ToString)
+                prevWi = "336"
+
+            Case "335"  'Staff reading, backsight / B2
+                If prevWi = "332" Then
+                    NextRod()
+                End If
+                If prevWi = "336" Then
+                    NextRod()
+                End If
+                heightReadingB2 = Convert.ToDouble(data) / 100000
+                heightReadingB2 = StaffReading(heightReadingB2)
+                RtbKonzola.AppendText(" B2: " & String.Format("{0,8}", Format(heightReadingB2, "0.00000").ToString) & " ******** Rod: " & rodNr & " T: " & tempLata.ToString)
+                prevWi = "335"
+
+            Case "333"  'Staff reading, intermediate sight
+                heightReadingIn = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(" IN: ******** ******** " & String.Format("{0,8}", Format(heightReadingIn, "0.00000").ToString))
+
+            Case "334"  'Staff reading, setting-out
+                heightReadingSo = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(" SO: ******** ******** " & String.Format("{0,8}", Format(heightReadingSo, "0.00000").ToString))
+
+            Case "571"  'Reading difference
+                sdiff = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(" s: " & String.Format("{0,8}", Format(sdiff, "0.00000").ToString))
+
+            Case "572"  'Cumulative diff
+                ssDiff = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(" ss: " & String.Format("{0,8}", Format(ssDiff, "0.00000").ToString))
+
+            Case "573"  'Difference in distance BF
+                distDiff = Convert.ToDouble(data) / 1000
+                RtbKonzola.AppendText(" sD: " & String.Format("{0,-8}", Format(distDiff, "0.00").ToString))
+
+            Case "574"  'Total distance
+                totalDist = Convert.ToDouble(data) / 1000
+                RtbKonzola.AppendText(" tD: " & String.Format("{0,-8}", Format(totalDist, "0.000").ToString))
+
+            Case "83."  'Groung heigth
+                groundHeigth = Convert.ToDouble(data) / 10000
+                'If point number is the same as previous
+                'Override current GrHt with previous and calc based on previous point height
+                If ptNum = ptNumPrev Then
+                    GrHt = GrHtPrev         'Reset GrHt to previous value
+                    GrHt = (GrHt + (heightReadingB1 + heightReadingB2) / 2) - ((heightReadingF1 + heightReadingF2) / 2)
+                Else
+                    'Else we save new point number to previous, and save current GrHt to previous
+                    'Do a normal calculation of height
+                    ptNumPrev = ptNum       'Save point number
+                    GrHtPrev = GrHt         'Save current GrHt
+                    GrHt = (GrHt + (heightReadingB1 + heightReadingB2) / 2) - ((heightReadingF1 + heightReadingF2) / 2)
+                End If
+                RtbKonzola.AppendText(" GrHt-R: " & Format(groundHeigth, "0.0000").ToString & " GrHt: " & Format(GrHt, "0.00000").ToString & vbCrLf)
+        End Select
     End Sub
 
     'Export subroutine if cmbTip is "Standard"
@@ -226,39 +532,39 @@ Public Class Form1
                 RtbKonzola.AppendText(" D: " & String.Format("{0,-9}", Format(dist, "0.000").ToString))
 
             Case "330"      'Staff reading in MEAS ONLY
-                Dim heigthReadingMe As Double
-                heigthReadingMe = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" ME: ******** ******** " & String.Format("{0,9}", Format(heigthReadingMe, "0.00000").ToString))
+                Dim heightReadingMe As Double
+                heightReadingMe = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(" ME: ******** ******** " & String.Format("{0,9}", Format(heightReadingMe, "0.00000").ToString))
 
             Case "331"      'Staff reading, backsight / B1
-                Dim heigthReadingB1 As Double
-                heigthReadingB1 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" B1: " & String.Format("{0,9}", Format(heigthReadingB1, "0.00000").ToString) & " ******** ********")
+                Dim heightReadingB1 As Double
+                heightReadingB1 = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(" B1: " & String.Format("{0,9}", Format(heightReadingB1, "0.00000").ToString) & " ******** ********")
 
             Case "332"      'Staff reading, foresight / F1
-                Dim heigthReadingF1 As Double
-                heigthReadingF1 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" F1: ******** " & String.Format("{0,9}", Format(heigthReadingF1, "0.00000").ToString) & " ********")
+                Dim heightReadingF1 As Double
+                heightReadingF1 = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(" F1: ******** " & String.Format("{0,9}", Format(heightReadingF1, "0.00000").ToString) & " ********")
 
             Case "336"      'Staff reading, foresight / F2
-                Dim heigthReadingF2 As Double
-                heigthReadingF2 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" F2: ******** " & String.Format("{0,9}", Format(heigthReadingF2, "0.00000").ToString) & " ********")
+                Dim heightReadingF2 As Double
+                heightReadingF2 = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(" F2: ******** " & String.Format("{0,9}", Format(heightReadingF2, "0.00000").ToString) & " ********")
 
             Case "335"      'Staff reading, backsight / B2
-                Dim heigthReadingB2 As Double
-                heigthReadingB2 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" B2: " & String.Format("{0,9}", Format(heigthReadingB2, "0.00000").ToString) & " ******** ********")
+                Dim heightReadingB2 As Double
+                heightReadingB2 = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(" B2: " & String.Format("{0,9}", Format(heightReadingB2, "0.00000").ToString) & " ******** ********")
 
             Case "333"      'Staff reading, intermediate sight
-                Dim heigthReadingIn As Double
-                heigthReadingIn = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" IN: ******** ******** " & String.Format("{0,9}", Format(heigthReadingIn, "0.00000").ToString))
+                Dim heightReadingIn As Double
+                heightReadingIn = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(" IN: ******** ******** " & String.Format("{0,9}", Format(heightReadingIn, "0.00000").ToString))
 
             Case "334"      'Staff reading, setting-out
-                Dim heigthReadingSo As Double
-                heigthReadingSo = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" SO: ******** ******** " & String.Format("{0,9}", Format(heigthReadingSo, "0.00000").ToString))
+                Dim heightReadingSo As Double
+                heightReadingSo = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(" SO: ******** ******** " & String.Format("{0,9}", Format(heightReadingSo, "0.00000").ToString))
 
             Case "52."      'Measurement difference
                 Dim sd As Double
@@ -296,159 +602,6 @@ Public Class Form1
                 RtbKonzola.AppendText(" GrHt: " & Format(groundHeigth, "0.0000").ToString)
 
         End Select
-    End Sub
-
-    'Export subroutine if cmbTip is "GURS"
-    Private Sub ExportGURS(ByVal wi As String, ByVal data As String)
-
-        Select Case wi
-            Case 410 To 419 'Measuring info or Code line
-                If data = "+?......1" Then
-                    RtbKonzola.AppendText(vbCrLf & "********" & vbCrLf & "Metoda: BF")
-                ElseIf data = "+?......2" Then
-                    RtbKonzola.AppendText(vbCrLf & "********" & vbCrLf & "Metoda: BFFB")
-                    GrHt = 0
-                    heigthReadingB1 = 0
-                    heigthReadingB2 = 0
-                    heigthReadingF1 = 0
-                    heigthReadingF2 = 0
-                ElseIf data = "+!....331" Then
-                    RtbKonzola.AppendText(vbCrLf & "Ponovitev: B1")
-                ElseIf data = "+!....332" Then
-                    RtbKonzola.AppendText(vbCrLf & "Ponovitev: F1")
-                ElseIf data = "+!....336" Then
-                    RtbKonzola.AppendText(vbCrLf & "Ponovitev: F2")
-                ElseIf data = "+!....335" Then
-                    RtbKonzola.AppendText(vbCrLf & "Ponovitev: B2")
-                    GrHt = GrHtPrev
-
-                Else
-                    codeNum = Convert.ToInt32(data)
-                    If codeNum = 1 Then
-                        'do nothing - old code commented bellow
-                        'RtbKonzola.AppendText("Temperatura: ")
-                    ElseIf codeNum = 10 Then    'Koda 10 - 3 podatki (poligon, par lat, datum)
-                        RtbKonzola.AppendText(vbCrLf & "Koda 10 (Info)")
-                    ElseIf codeNum = 30 Then    'Koda 30 - 4 podatki (čas, temperatura, vreme, pogoji)
-                        RtbKonzola.AppendText(vbCrLf & "Koda 30 (Pogoji)")
-                    ElseIf codeNum = 33 Then    'Koda 33 - 2 podatka (par lat, lata začetek/konec)
-                        RtbKonzola.AppendText(vbCrLf & "Koda 33 (Late)")
-                    Else                        'Ostale kode - 1 do 4 podatki
-                        RtbKonzola.AppendText(vbCrLf & "Koda " & codeNum.ToString)
-                    End If
-                End If
-
-            Case "42."  'Code
-                Dim numData As Integer
-                numData = Convert.ToInt32(data)
-                If codeNum = 1 Then ' koda 1 za temperaturo - info 1
-                    'do nothing - old code commented bellow
-                    'Dim tempT As Double = Convert.ToDouble(numData) / 10
-                    'RtbKonzola.AppendText(Format(tempT, "0.0").ToString)
-                ElseIf codeNum = 10 Then    ' koda 10: številka poligona - info 1
-                    RtbKonzola.AppendText(" poligon: " & numData.ToString)
-                ElseIf codeNum = 30 Then    ' koda 30: čas vnosa - info 1
-                    RtbKonzola.AppendText(" čas: " & numData.ToString)
-                ElseIf codeNum = 33 Then    ' koda 33: številka para lat - info 1
-                    RtbKonzola.AppendText(" par: " & numData.ToString)
-                Else                        ' sicer izvozimo običajno Info1
-                    RtbKonzola.AppendText(" Info1: " & numData.ToString)
-                End If
-
-            Case "43."  ' Code: Info2
-                Dim numData As Integer
-                numData = Convert.ToInt32(data)
-                If codeNum = 10 Then        ' koda 10: št. para lat - info 2
-                    RtbKonzola.AppendText(" št.lat: " & numData.ToString)
-                ElseIf codeNum = 30 Then    ' koda 30: temperatura - info 2
-                    RtbKonzola.AppendText(" temp: " & numData.ToString)
-                ElseIf codeNum = 33 Then    ' koda 33: lata na začetku/koncu vlaka - info 2
-                    RtbKonzola.AppendText(" lata: " & numData.ToString & vbCrLf)
-                Else                        ' sicer izvozimo običajno Info2
-                    RtbKonzola.AppendText(" Info2: " & numData.ToString)
-                End If
-
-            Case "44."  ' Code: Info3
-                Dim numData As Integer
-                numData = Convert.ToInt32(data)
-                If codeNum = 10 Then    ' koda 10: datum meritve - info 3
-                    RtbKonzola.AppendText(" datum: " & numData.ToString)
-                ElseIf codeNum = 30 Then    ' koda 30: vremenski pogoji - info 3
-                    RtbKonzola.AppendText(" vreme: " & numData.ToString)
-                Else                        ' sicer izvozimo običajno Info3
-                    RtbKonzola.AppendText(" Info3: " & numData.ToString)
-                End If
-
-            Case "45."  ' Code: Info4
-                Dim numData As Integer
-                numData = Convert.ToInt32(data)
-                If codeNum = 30 Then        ' koda 30: pogoji niveliranja
-                    RtbKonzola.AppendText(" pogoji: " & numData.ToString)
-                Else                        ' sicer izvozimo običajno Info4
-                    RtbKonzola.AppendText(" Info4: " & numData.ToString)
-                End If
-
-            Case 110 To 119 'Staff id
-                Dim numData As Integer
-                numData = Convert.ToInt32(data)
-                RtbKonzola.AppendText(vbCrLf & String.Format("{0,-8}", numData.ToString))
-
-            Case "32."  'Distance to staff
-                dist = Convert.ToDouble(data) / 1000
-                RtbKonzola.AppendText(" D: " & String.Format("{0,8}", Format(dist, "0.000").ToString))
-
-            Case "330"  'Staff reading in MEAS ONLY
-                heigthReadingMe = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" ME: " & String.Format("{0,8}", Format(heigthReadingMe, "0.00000").ToString))
-
-            Case "331"  'Staff reading, backsight / B1
-                heigthReadingB1 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" B1: " & String.Format("{0,8}", Format(heigthReadingB1, "0.00000").ToString))
-
-            Case "332"  'Staff reading, foresight / F1
-                heigthReadingF1 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" F1: ******** " & String.Format("{0,8}", Format(heigthReadingF1, "0.00000").ToString))
-
-            Case "336"  'Staff reading, foresight / F2
-                heigthReadingF2 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" F2: ******** " & String.Format("{0,8}", Format(heigthReadingF2, "0.00000").ToString))
-
-            Case "335"  'Staff reading, backsight / B2
-                heigthReadingB2 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" B2: " & String.Format("{0,8}", Format(heigthReadingB2, "0.00000").ToString))
-
-            Case "333"  'Staff reading, intermediate sight
-                heigthReadingIn = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" IN: ******** ******** " & String.Format("{0,8}", Format(heigthReadingIn, "0.00000").ToString))
-
-            Case "334"  'Staff reading, setting-out
-                heigthReadingSo = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" SO: ******** ******** " & String.Format("{0,8}", Format(heigthReadingSo, "0.00000").ToString))
-
-            Case "571"  'Reading difference
-                sdiff = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" s: " & String.Format("{0,8}", Format(sdiff, "0.00000").ToString))
-
-            Case "572"  'Cumulative diff
-                ssDiff = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(" ss: " & String.Format("{0,8}", Format(ssDiff, "0.00000").ToString))
-
-            Case "573"  'Difference in distance BF
-                distDiff = Convert.ToDouble(data) / 1000
-                RtbKonzola.AppendText(" sD: " & String.Format("{0,-8}", Format(distDiff, "0.00").ToString))
-
-            Case "574"  'Total distance
-                totalDist = Convert.ToDouble(data) / 1000
-                RtbKonzola.AppendText(" tD: " & String.Format("{0,-8}", Format(totalDist, "0.000").ToString))
-
-            Case "83."  'Groung heigth
-                groundHeigth = Convert.ToDouble(data) / 10000
-                GrHtPrev = GrHt
-                GrHt = (GrHt + (heigthReadingB1 + heigthReadingB2) / 2) - ((heigthReadingF1 + heigthReadingF2) / 2)
-                RtbKonzola.AppendText(" GrHt: " & Format(groundHeigth, "0.0000").ToString & " GrHtIzr: " & Format(GrHt, "0.00000").ToString & vbCrLf)
-
-        End Select
-
     End Sub
 
     'Export subroutine if cmbTip is "CSV"
@@ -504,39 +657,39 @@ Public Class Form1
                 RtbKonzola.AppendText(";D:;" & Format(dist, "0.000").ToString)
 
             Case "330"      'Staff reading in MEAS ONLY
-                Dim heigthReadingMe As Double
-                heigthReadingMe = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";ME:;" & Format(heigthReadingMe, "0.00000").ToString & ";;")
+                Dim heightReadingMe As Double
+                heightReadingMe = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";ME:;" & Format(heightReadingMe, "0.00000").ToString & ";;")
 
             Case "331"      'Staff reading, backsight / B1
-                Dim heigthReadingB1 As Double
-                heigthReadingB1 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";B1:;" & Format(heigthReadingB1, "0.00000").ToString & ";;")
+                Dim heightReadingB1 As Double
+                heightReadingB1 = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";B1:;" & Format(heightReadingB1, "0.00000").ToString & ";;")
 
             Case "332"      'Staff reading, foresight / F1
-                Dim heigthReadingF1 As Double
-                heigthReadingF1 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";F1:;;" & Format(heigthReadingF1, "0.00000").ToString & ";")
+                Dim heightReadingF1 As Double
+                heightReadingF1 = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";F1:;;" & Format(heightReadingF1, "0.00000").ToString & ";")
 
             Case "336"      'Staff reading, foresight / F2
-                Dim heigthReadingF2 As Double
-                heigthReadingF2 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";F2:;;" & Format(heigthReadingF2, "0.00000").ToString & ";")
+                Dim heightReadingF2 As Double
+                heightReadingF2 = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";F2:;;" & Format(heightReadingF2, "0.00000").ToString & ";")
 
             Case "335"      'Staff reading, backsight / B2
-                Dim heigthReadingB2 As Double
-                heigthReadingB2 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";B2:;" & Format(heigthReadingB2, "0.00000").ToString & ";;")
+                Dim heightReadingB2 As Double
+                heightReadingB2 = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";B2:;" & Format(heightReadingB2, "0.00000").ToString & ";;")
 
             Case "333"      'Staff reading, intermediate sight
-                Dim heigthReadingIn As Double
-                heigthReadingIn = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";IN:;;;" & Format(heigthReadingIn, "0.00000").ToString)
+                Dim heightReadingIn As Double
+                heightReadingIn = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";IN:;;;" & Format(heightReadingIn, "0.00000").ToString)
 
             Case "334"      'Staff reading, setting-out
-                Dim heigthReadingSo As Double
-                heigthReadingSo = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";SO:;;;" & Format(heigthReadingSo, "0.00000").ToString)
+                Dim heightReadingSo As Double
+                heightReadingSo = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";SO:;;;" & Format(heightReadingSo, "0.00000").ToString)
 
             Case "52."      'Measurement difference
                 Dim sd As Double
@@ -629,39 +782,39 @@ Public Class Form1
                 RtbKonzola.AppendText(";D:;" & Format(dist, "0.000").ToString)
 
             Case "330"      'Staff reading in MEAS ONLY
-                Dim heigthReadingMe As Double
-                heigthReadingMe = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";ME:;;;" & Format(heigthReadingMe, "0.00000").ToString)
+                Dim heightReadingMe As Double
+                heightReadingMe = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";ME:;;;" & Format(heightReadingMe, "0.00000").ToString)
 
             Case "331"      'Staff reading, backsight / B1
-                Dim heigthReadingB1 As Double
-                heigthReadingB1 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";B1:;" & Format(heigthReadingB1, "0.00000").ToString)
+                Dim heightReadingB1 As Double
+                heightReadingB1 = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";B1:;" & Format(heightReadingB1, "0.00000").ToString)
 
             Case "332"      'Staff reading, foresight / F1
-                Dim heigthReadingF1 As Double
-                heigthReadingF1 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";F1:;;" & Format(heigthReadingF1, "0.00000").ToString)
+                Dim heightReadingF1 As Double
+                heightReadingF1 = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";F1:;;" & Format(heightReadingF1, "0.00000").ToString)
 
             Case "336"      'Staff reading, foresight / F2
-                Dim heigthReadingF2 As Double
-                heigthReadingF2 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";F2:;;" & Format(heigthReadingF2, "0.00000").ToString)
+                Dim heightReadingF2 As Double
+                heightReadingF2 = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";F2:;;" & Format(heightReadingF2, "0.00000").ToString)
 
             Case "335"      'Staff reading, backsight / B2
-                Dim heigthReadingB2 As Double
-                heigthReadingB2 = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";B2:;" & Format(heigthReadingB2, "0.00000").ToString)
+                Dim heightReadingB2 As Double
+                heightReadingB2 = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";B2:;" & Format(heightReadingB2, "0.00000").ToString)
 
             Case "333"      'Staff reading, intermediate sight
-                Dim heigthReading As Double
-                heigthReading = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";IN:;;;" & Format(heigthReading, "0.00000").ToString)
+                Dim heightReading As Double
+                heightReading = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";IN:;;;" & Format(heightReading, "0.00000").ToString)
 
             Case "334"      'Staff reading, setting-out
-                Dim heigthReading As Double
-                heigthReading = Convert.ToDouble(data) / 100000
-                RtbKonzola.AppendText(";SO:;;;" & Format(heigthReading, "0.00000").ToString)
+                Dim heightReading As Double
+                heightReading = Convert.ToDouble(data) / 100000
+                RtbKonzola.AppendText(";SO:;;;" & Format(heightReading, "0.00000").ToString)
 
             Case "52."      'Measurement difference
                 'Dim sd As Double
@@ -700,4 +853,5 @@ Public Class Form1
 
         End Select
     End Sub
+
 End Class

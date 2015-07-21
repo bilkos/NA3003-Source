@@ -18,3 +18,21 @@ X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.pdb
 X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\Docs\HelpGuide.rtf
 X:\VS Projects\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.vbprojResolveAssemblyReference.cache
 E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\NA3003 Fieldbook.exe.config
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\Docs\Changelog.txt
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\Docs\HelpGuide.rtf
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\NA3003 Fieldbook.exe.manifest
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\NA3003 Fieldbook.application
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\NA3003 Fieldbook.exe
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\NA3003 Fieldbook.pdb
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\bin\Debug\NA3003 Fieldbook.xml
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003_Fieldbook.AboutBox1.resources
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003_Fieldbook.Form1.resources
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003_Fieldbook.HelpForm.resources
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003_Fieldbook.Resources.resources
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003_Fieldbook.SettingsForm.resources
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.vbproj.GenerateResource.Cache
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.exe.manifest
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.application
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.exe
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.xml
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.pdb
