@@ -185,6 +185,30 @@ Namespace My
                 Me("LastMethod") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property LataAL0() As Double
+            Get
+                Return CType(Me("LataAL0"),Double)
+            End Get
+            Set
+                Me("LataAL0") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property LataBL0() As Double
+            Get
+                Return CType(Me("LataBL0"),Double)
+            End Get
+            Set
+                Me("LataBL0") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -124,13 +124,7 @@
 Choose file to convert, select export type and click button 'Create Fieldbook' to convert...
 You can save exported data by clicking button 'Save to File'.
 
-Export types:
-"Standard Report"   = Full fieldbook with all data as recorded
-"Calculated Report" = Calculated fieldbook with corrected staff reading for temperature difference
-"CSV"              = Comma-separated values file for Excel import (data is sorted in rows/columns)
-"CSV - Measure"    = Comma-separated values file for Excel import. Measurements only!
-
-Click button "Help" for simple guide and detailed explanations for some things.
+Click "Help" for simple guide and explanations.
 If you want to know more about NA3003 apps click "About" button.</value>
   </data>
   <metadata name="OpenFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

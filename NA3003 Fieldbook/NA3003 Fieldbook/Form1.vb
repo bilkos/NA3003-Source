@@ -12,20 +12,24 @@ Imports System.Threading
 Public Class Form1
 
     Dim checkFile As Boolean
+    Dim dataError As Integer = 0
     Dim codeNum As Integer
 
     Dim lataAid As Integer = My.Settings.LataAid
     Dim tempLataNullA As Double = My.Settings.LataATempNull
     Dim alphaA As Double = My.Settings.LataAalfa
     Dim m0A As Double = My.Settings.LataAm0
+    Dim l0A As Double = My.Settings.LataAL0
     Dim lataBid As Integer = My.Settings.LataBid
     Dim tempLataNullB As Double = My.Settings.LataBTempNull
     Dim alphaB As Double = My.Settings.LataBalfa
     Dim m0B As Double = My.Settings.LataBm0
+    Dim l0B As Double = My.Settings.LataBL0
 
+    Dim measMethod As Integer
     Dim prevWi As String
-    Dim rodNr As Integer
-    Dim tempLata As Double
+    Dim staffNr As Integer = 0
+    Dim tempStaff As Double
     Dim ptNum As Integer
     Dim ptNumPrev As Integer
     Dim dist As Double
@@ -58,23 +62,13 @@ Public Class Form1
         HelpForm.Show()
     End Sub
 
-    Private Sub NextRod()
-        If cb1Staff.Checked = False Then
-            If rodNr = lataAid Then
-                rodNr = lataBid
-            Else
-                rodNr = lataAid
-            End If
-        End If
-    End Sub
-
     Private Sub BtnSettings_Click(sender As Object, e As EventArgs) Handles BtnSettings.Click
         SettingsForm.Show()
         Me.Hide()
     End Sub
 
     Private Sub cmbTip_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTip.SelectedIndexChanged
-        If cmbTip.SelectedItem = "Calculated Report" Then
+        If cmbTip.SelectedItem = "Calculated Report" And checkFile = True Then
             My.Settings.Reload()
             cbCalibration.Checked = My.Settings.UseCorrections
             cbCalibration.Enabled = True
@@ -150,53 +144,87 @@ Public Class Form1
             cmbTip.Enabled = True
             'Enable Type combo box
         End If
+        If cmbTip.SelectedItem = "Calculated Report" Then
+            cbCalibration.Enabled = True
+            cb1Staff.Enabled = True
+        End If
     End Sub
 
     'Read text file until end of file
     Private Sub BtnCreate_Click(sender As Object, e As EventArgs) Handles BtnCreate.Click
         If checkFile = True Then
+            If cmbTip.SelectedItem = Nothing Then
+                MsgBox("Select type of Fieldbook!", MsgBoxStyle.Critical, "NA3003: Error")
+                Exit Sub
+            End If
             RtbKonzola.Clear()
-            If cmbTip.SelectedItem = "Standard Report" Then
+            If cmbTip.SelectedItem = "Calculated Report" Then
                 RtbKonzola.ForeColor = Color.LimeGreen
-            ElseIf cmbTip.SelectedItem = "Calculated Report" Then
-
-                RtbKonzola.ForeColor = Color.Orange
-            ElseIf cmbTip.SelectedItem = "CSV" Or cmbTip.SelectedItem = "CSV - Measure Only" Then
-                RtbKonzola.ForeColor = Color.DarkTurquoise
             Else
-                RtbKonzola.ForeColor = Color.Silver
+                RtbKonzola.ForeColor = Color.DarkGray
             End If
             ' prepare StreamReader
             Dim streamReader As StreamReader = New StreamReader(OpenFileDialog1.FileName)
             Dim i As Integer = 0
             ' loop untill end of stream
             Do Until streamReader.EndOfStream
-                'Split each line to separate fields
+                'Read and Split each line to separate it into fields
                 Dim line() As String = streamReader.ReadLine().Split(" ")
-                'for each line send data to DataType() subroutine
-                If i = 0 Then
-                    If cmbTip.SelectedItem = "Standard Report" Then
-                        RtbKonzola.AppendText("+++++ Leica NA3003 Fieldbook - Standard v1.1 +++++")
-                    End If
-                    If cmbTip.SelectedItem = "Calculated Report" Then
-                        RtbKonzola.AppendText("+++++ Leica NA3003 Fieldbook - Calc v1.3 +++++")
-                        If My.Settings.UseCorrections = True Then
-                            RtbKonzola.AppendText(vbCrLf & "Height readings calculated using rod calibrations" & _
-                                                  vbCrLf & "Rod A: " & My.Settings.LataAid & " alpha: " & My.Settings.LataAalfa.ToString & " m0: " & My.Settings.LataAm0.ToString & _
-                                                  vbCrLf & "Rod B: " & My.Settings.LataBid & " alpha: " & My.Settings.LataBalfa.ToString & " m0: " & My.Settings.LataBm0.ToString)
+                If dataError = 0 Then
+                    'for each line send data to DataType() subroutine
+                    If i = 0 Then
+                        If cmbTip.SelectedItem = "Standard Report" Then
+                            RtbKonzola.AppendText("+++++ NA3003 Fieldbook - Standard v1.1 +++++")
+                        End If
+                        If cmbTip.SelectedItem = "Calculated Report" Then
+                            RtbKonzola.AppendText("+++++ NA3003 Fieldbook - Calc v1.3 +++++")
+                            If My.Settings.UseCorrections = True Then
+                                RtbKonzola.AppendText(vbCrLf & "********" & vbCrLf & "Calculated using staff calibrations" & vbCrLf & _
+                                                      "Staff A: " & _
+                                                      "ID= " & My.Settings.LataAid & _
+                                                      " / alpha= " & My.Settings.LataAalfa.ToString & " ppm" & _
+                                                      " / m0= " & My.Settings.LataAm0.ToString & " ppm" & _
+                                                      " / L0= " & My.Settings.LataAL0 & " mm" & vbCrLf & _
+                                                      "Staff B: " & _
+                                                      "ID= " & My.Settings.LataBid & _
+                                                      " / alpha= " & My.Settings.LataBalfa.ToString & " ppm" & _
+                                                      " / m0= " & My.Settings.LataBm0.ToString & " ppm" & _
+                                                      " / L0= " & My.Settings.LataBL0 & " mm")
+                            End If
+                        End If
+                        If cmbTip.SelectedItem = "CSV" Then
+                            RtbKonzola.AppendText("+++++; NA3003; Fieldbook; - CSV; v1.1; +++++")
+                        End If
+                        If cmbTip.SelectedItem = "CSV - Measure Only" Then
+                            RtbKonzola.AppendText("+++++; NA3003; Fieldbook; - CSV; v1.1; +++++")
                         End If
                     End If
-                    If cmbTip.SelectedItem = "CSV" Then
-                        RtbKonzola.AppendText("+++++; Leica; NA3003; Fieldbook; - CSV; v1.1; +++++")
-                    End If
-                    If cmbTip.SelectedItem = "CSV - Measure Only" Then
-                        RtbKonzola.AppendText("+++++; Leica; NA3003; Fieldbook; - CSV; v1.1; +++++")
+                    For Each lineData As String In line
+                        DataType(lineData)
+                    Next
+                    i = i + 1
+                ElseIf dataError = 1 Then   'Error: 1 - if data for starting staff is missing
+                    Dim dataErrorMsg1 As Object = MessageBox.Show("No staff ID in data." & vbCrLf & "Do you want to continue calculating WITHOUT staff calibration?", _
+                                                                  "NA3003 Error: No staff ID", _
+                                                                  MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                    'If user pressed "Yes" then turn off correction and continue running
+                    If dataErrorMsg1 = DialogResult.Yes Then
+                        dataError = 0
+                        My.Settings.UseCorrections = False
+                        My.Settings.Save()
+                        cbCalibration.Checked = False
+                        'Export line
+                        For Each lineData As String In line
+                            DataType(lineData)
+                        Next
+                        i = i + 1
+                        'Else we destroy sub and stop the process + reset values
+                    ElseIf dataErrorMsg1 = DialogResult.No Then
+                        dataError = 0
+                        MsgBox("Fix raw data and retry.", MsgBoxStyle.Exclamation, "NA3003: Process stopped")
+                        Exit Sub
                     End If
                 End If
-                For Each lineData As String In line
-                    DataType(lineData)
-                Next
-                i = i + 1
             Loop
             ' close file that was opened for reading
             streamReader.Close()    'close streamreader
@@ -204,8 +232,10 @@ Public Class Form1
             If cbComma.Checked = True Then
                 RtbKonzola.Text = Replace(RtbKonzola.Text, ".", ",")
             End If
-            lblDataStatus.Text = "File NOT saved."
-            MsgBox("Fieldbook '" & cmbTip.SelectedItem & "' is done." & vbCrLf & vbCrLf & "Don't forget to save.", MsgBoxStyle.Information, "Create Fieldbook")
+            lblDataStatus.Text = "File NOT saved!"
+            MsgBox("Fieldbook '" & cmbTip.SelectedItem & "' is done." & vbCrLf & vbCrLf & "Don't forget to save.", MsgBoxStyle.Information, "NA3003: Create Fieldbook")
+            staffNr = 0
+            dataError = 0
         Else
             RtbKonzola.Clear()      'clear rtb
             RtbKonzola.AppendText("No file selected...") 'show error message
@@ -235,24 +265,25 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub NextStaff()
+        If My.Settings.OneStaff = False And My.Settings.UseCorrections = True And dataError = 0 Then
+            If staffNr = lataAid Then
+                staffNr = lataBid
+            Else
+                staffNr = lataAid
+            End If
+        End If
+    End Sub
+
     Private Function StaffReading(ByVal heightReading As Double)
         Dim calcHeight As Double
         My.Settings.Reload()
-        If My.Settings.UseCorrections = True Then
-            'If corrections are enabled read values
-            lataAid = My.Settings.LataAid
-            tempLataNullA = My.Settings.LataATempNull
-            alphaA = My.Settings.LataAalfa
-            m0A = My.Settings.LataAm0
-            lataBid = My.Settings.LataBid
-            tempLataNullB = My.Settings.LataBTempNull
-            alphaB = My.Settings.LataBalfa
-            m0B = My.Settings.LataBm0
-            'Let's calculate corrected rod heght reading, depending on which rod is beeing read
-            If rodNr = lataAid Then
-                calcHeight = ((alphaA * (tempLata - tempLataNullA) * 0.000001) + (1 + (m0A * 0.000001))) * heightReading
-            ElseIf rodNr = lataBid Then
-                calcHeight = ((alphaB * (tempLata - tempLataNullB) * 0.000001) + (1 + (m0A * 0.000001))) * heightReading
+        If My.Settings.UseCorrections = True And dataError = 0 Then
+            'Let's calculate corrected staff heght reading, depending on which staff is beeing read
+            If staffNr = lataAid Then
+                calcHeight = ((alphaA * (tempStaff - tempLataNullA) * 0.000001) + (1 + (m0A * 0.000001))) * heightReading + (l0A / 1000)
+            ElseIf staffNr = lataBid Then
+                calcHeight = ((alphaB * (tempStaff - tempLataNullB) * 0.000001) + (1 + (m0A * 0.000001))) * heightReading + (l0B / 1000)
             End If
         Else
             'Else we just output height values
@@ -267,7 +298,8 @@ Public Class Form1
         Select Case wi
             Case 410 To 419 'Measuring info or Code line
                 If data = "+?......1" Then
-                    RtbKonzola.AppendText(vbCrLf & "********" & vbCrLf & "Metoda: BF")
+                    RtbKonzola.AppendText(vbCrLf & "********" & vbCrLf & "Method: BF")
+                    measMethod = 1
                     GrHt = 0
                     GrHtPrev = 0
                     heightReadingB1 = 0
@@ -276,7 +308,8 @@ Public Class Form1
                     heightReadingB2 = 0
 
                 ElseIf data = "+?......2" Then
-                    RtbKonzola.AppendText(vbCrLf & "********" & vbCrLf & "Metoda: BFFB")
+                    RtbKonzola.AppendText(vbCrLf & "********" & vbCrLf & "Method: BFFB")
+                    measMethod = 2
                     GrHt = 0
                     GrHtPrev = 0
                     heightReadingB1 = 0
@@ -285,28 +318,28 @@ Public Class Form1
                     heightReadingB2 = 0
 
                 ElseIf data = "+!....331" Then
-                    RtbKonzola.AppendText(vbCrLf & "Ponovitev: B1")
+                    RtbKonzola.AppendText(vbCrLf & "Repeat: B1")
                     heightReadingB1 = 0
                     heightReadingF1 = 0
                     heightReadingF2 = 0
                     heightReadingB2 = 0
                     If prevWi = "335" Then
-                        NextRod()
+                        NextStaff()
                     End If
 
                 ElseIf data = "+!....332" Then
-                    RtbKonzola.AppendText(vbCrLf & "Ponovitev: F1")
+                    RtbKonzola.AppendText(vbCrLf & "Repeat: F1")
                     heightReadingF1 = 0
                     heightReadingF2 = 0
                     heightReadingB2 = 0
 
                 ElseIf data = "+!....336" Then
-                    RtbKonzola.AppendText(vbCrLf & "Ponovitev: F2")
+                    RtbKonzola.AppendText(vbCrLf & "Repeat: F2")
                     heightReadingF2 = 0
                     heightReadingB2 = 0
 
                 ElseIf data = "+!....335" Then
-                    RtbKonzola.AppendText(vbCrLf & "Ponovitev: B2")
+                    RtbKonzola.AppendText(vbCrLf & "Repeat: B2")
                     heightReadingB2 = 0
                     GrHt = GrHtPrev
 
@@ -322,7 +355,7 @@ Public Class Form1
                     ElseIf codeNum = 33 Then    'Koda 33 - 2 podatka (par lat, lata začetek/konec)
                         RtbKonzola.AppendText(vbCrLf & "Code 33 (Staffs)")
                     Else                        'Ostale kode - 1 do 4 podatki
-                        RtbKonzola.AppendText(vbCrLf & "Koda " & codeNum.ToString)
+                        RtbKonzola.AppendText(vbCrLf & "Code " & codeNum.ToString)
                     End If
                 End If
 
@@ -331,7 +364,7 @@ Public Class Form1
                 numData = Convert.ToInt32(data)
                 If codeNum = 1 Then ' koda 1 za temperaturo - info 1
                     'do nothing - old code commented bellow
-                    tempLata = Convert.ToDouble(numData) / 10
+                    tempStaff = Convert.ToDouble(numData) / 10
                     'RtbKonzola.AppendText(Format(tempT, "0.0").ToString)
                 ElseIf codeNum = 10 Then    ' koda 10: številka poligona - info 1
                     RtbKonzola.AppendText(" poligon: " & numData.ToString)
@@ -352,7 +385,7 @@ Public Class Form1
                     RtbKonzola.AppendText(" temp: " & numData.ToString)
                 ElseIf codeNum = 33 Then    ' koda 33: lata na začetku/koncu vlaka - info 2
                     RtbKonzola.AppendText(" staff: " & numData.ToString & vbCrLf)
-                    rodNr = numData
+                    staffNr = numData
                     prevWi = wi
                 Else                        ' sicer izvozimo običajno Info2
                     RtbKonzola.AppendText(" Info2: " & numData.ToString)
@@ -391,51 +424,54 @@ Public Class Form1
                 RtbKonzola.AppendText(" ME: " & String.Format("{0,8}", Format(heightReadingMe, "0.00000").ToString))
 
             Case "331"  'Staff reading, backsight / B1
-                If prevWi = "332" Then
-                    NextRod()
+                If staffNr = 0 And My.Settings.UseCorrections = True Then
+                    dataError = 1
+                End If
+                If prevWi = "332" And measMethod = 2 Then
+                    NextStaff()
                 End If
                 If prevWi = "335" Then
-                    NextRod()
+                    NextStaff()
                 End If
                 If prevWi = "336" Then
-                    NextRod()
+                    NextStaff()
                 End If
                 heightReadingB1 = Convert.ToDouble(data) / 100000
                 heightReadingB1 = StaffReading(heightReadingB1)
-                RtbKonzola.AppendText(" B1: " & String.Format("{0,8}", Format(heightReadingB1, "0.00000").ToString) & " ******** Rod: " & rodNr & " T: " & tempLata.ToString)
+                RtbKonzola.AppendText(" B1: " & String.Format("{0,8}", Format(heightReadingB1, "0.00000").ToString) & " ******** Staff: " & staffNr & " T: " & tempStaff.ToString)
                 prevWi = "331"
 
             Case "332"  'Staff reading, foresight / F1
                 If prevWi = "331" Then
-                    NextRod()
+                    NextStaff()
                 End If
                 If prevWi = "335" Then
-                    NextRod()
+                    NextStaff()
                 End If
                 heightReadingF1 = Convert.ToDouble(data) / 100000
                 heightReadingF1 = StaffReading(heightReadingF1)
-                RtbKonzola.AppendText(" F1: ******** " & String.Format("{0,8}", Format(heightReadingF1, "0.00000").ToString) & " Rod: " & rodNr & " T: " & tempLata.ToString)
+                RtbKonzola.AppendText(" F1: ******** " & String.Format("{0,8}", Format(heightReadingF1, "0.00000").ToString) & " Staff: " & staffNr & " T: " & tempStaff.ToString)
                 prevWi = "332"
 
             Case "336"  'Staff reading, foresight / F2
                 If prevWi = "335" Then
-                    NextRod()
+                    NextStaff()
                 End If
                 heightReadingF2 = Convert.ToDouble(data) / 100000
                 heightReadingF2 = StaffReading(heightReadingF2)
-                RtbKonzola.AppendText(" F2: ******** " & String.Format("{0,8}", Format(heightReadingF2, "0.00000").ToString) & " Rod: " & rodNr & " T: " & tempLata.ToString)
+                RtbKonzola.AppendText(" F2: ******** " & String.Format("{0,8}", Format(heightReadingF2, "0.00000").ToString) & " Staff: " & staffNr & " T: " & tempStaff.ToString)
                 prevWi = "336"
 
             Case "335"  'Staff reading, backsight / B2
                 If prevWi = "332" Then
-                    NextRod()
+                    NextStaff()
                 End If
                 If prevWi = "336" Then
-                    NextRod()
+                    NextStaff()
                 End If
                 heightReadingB2 = Convert.ToDouble(data) / 100000
                 heightReadingB2 = StaffReading(heightReadingB2)
-                RtbKonzola.AppendText(" B2: " & String.Format("{0,8}", Format(heightReadingB2, "0.00000").ToString) & " ******** Rod: " & rodNr & " T: " & tempLata.ToString)
+                RtbKonzola.AppendText(" B2: " & String.Format("{0,8}", Format(heightReadingB2, "0.00000").ToString) & " ******** Staff: " & staffNr & " T: " & tempStaff.ToString)
                 prevWi = "335"
 
             Case "333"  'Staff reading, intermediate sight
@@ -468,13 +504,25 @@ Public Class Form1
                 'Override current GrHt with previous and calc based on previous point height
                 If ptNum = ptNumPrev Then
                     GrHt = GrHtPrev         'Reset GrHt to previous value
-                    GrHt = (GrHt + (heightReadingB1 + heightReadingB2) / 2) - ((heightReadingF1 + heightReadingF2) / 2)
+
+                    If measMethod = 1 Then
+                        GrHt = (GrHt + heightReadingB1 - heightReadingF1)
+                    End If
+                    If measMethod = 2 Then
+                        GrHt = (GrHt + (heightReadingB1 + heightReadingB2) / 2) - ((heightReadingF1 + heightReadingF2) / 2)
+                    End If
                 Else
                     'Else we save new point number to previous, and save current GrHt to previous
                     'Do a normal calculation of height
                     ptNumPrev = ptNum       'Save point number
                     GrHtPrev = GrHt         'Save current GrHt
-                    GrHt = (GrHt + (heightReadingB1 + heightReadingB2) / 2) - ((heightReadingF1 + heightReadingF2) / 2)
+
+                    If measMethod = 1 Then
+                        GrHt = (GrHt + heightReadingB1 - heightReadingF1)
+                    End If
+                    If measMethod = 2 Then
+                        GrHt = (GrHt + (heightReadingB1 + heightReadingB2) / 2) - ((heightReadingF1 + heightReadingF2) / 2)
+                    End If
                 End If
                 RtbKonzola.AppendText(" GrHt-R: " & Format(groundHeigth, "0.0000").ToString & " GrHt: " & Format(GrHt, "0.00000").ToString & vbCrLf)
         End Select

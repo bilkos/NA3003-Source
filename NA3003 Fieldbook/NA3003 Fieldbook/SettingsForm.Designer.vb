@@ -45,6 +45,10 @@ Partial Class SettingsForm
         Me.TextBox8 = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TbL0a = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.TbL0b = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -54,9 +58,9 @@ Partial Class SettingsForm
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(238, Byte))
         Me.Label1.Location = New System.Drawing.Point(82, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(42, 13)
+        Me.Label1.Size = New System.Drawing.Size(46, 13)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Rod A"
+        Me.Label1.Text = "Staff A"
         '
         'TextBox1
         '
@@ -84,21 +88,21 @@ Partial Class SettingsForm
         Me.TextBox4.Location = New System.Drawing.Point(149, 18)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(50, 20)
-        Me.TextBox4.TabIndex = 5
+        Me.TextBox4.TabIndex = 6
         '
         'TextBox5
         '
         Me.TextBox5.Location = New System.Drawing.Point(149, 44)
         Me.TextBox5.Name = "TextBox5"
         Me.TextBox5.Size = New System.Drawing.Size(50, 20)
-        Me.TextBox5.TabIndex = 6
+        Me.TextBox5.TabIndex = 7
         '
         'TextBox6
         '
         Me.TextBox6.Location = New System.Drawing.Point(149, 70)
         Me.TextBox6.Name = "TextBox6"
         Me.TextBox6.Size = New System.Drawing.Size(50, 20)
-        Me.TextBox6.TabIndex = 7
+        Me.TextBox6.TabIndex = 8
         '
         'Label2
         '
@@ -115,9 +119,9 @@ Partial Class SettingsForm
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(238, Byte))
         Me.Label3.Location = New System.Drawing.Point(162, 9)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(42, 13)
+        Me.Label3.Size = New System.Drawing.Size(46, 13)
         Me.Label3.TabIndex = 0
-        Me.Label3.Text = "Rod B"
+        Me.Label3.Text = "Staff B"
         '
         'Label4
         '
@@ -140,30 +144,30 @@ Partial Class SettingsForm
         'BtnSaveSettings
         '
         Me.BtnSaveSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnSaveSettings.Location = New System.Drawing.Point(218, 185)
+        Me.BtnSaveSettings.Location = New System.Drawing.Point(218, 222)
         Me.BtnSaveSettings.Name = "BtnSaveSettings"
         Me.BtnSaveSettings.Size = New System.Drawing.Size(60, 23)
-        Me.BtnSaveSettings.TabIndex = 9
+        Me.BtnSaveSettings.TabIndex = 11
         Me.BtnSaveSettings.Text = "Save"
         Me.BtnSaveSettings.UseVisualStyleBackColor = True
         '
         'BtnCancelSettings
         '
         Me.BtnCancelSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnCancelSettings.Location = New System.Drawing.Point(152, 185)
+        Me.BtnCancelSettings.Location = New System.Drawing.Point(152, 222)
         Me.BtnCancelSettings.Name = "BtnCancelSettings"
         Me.BtnCancelSettings.Size = New System.Drawing.Size(60, 23)
-        Me.BtnCancelSettings.TabIndex = 10
+        Me.BtnCancelSettings.TabIndex = 12
         Me.BtnCancelSettings.Text = "Cancel"
         Me.BtnCancelSettings.UseVisualStyleBackColor = True
         '
         'BtnDefaults
         '
         Me.BtnDefaults.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.BtnDefaults.Location = New System.Drawing.Point(13, 185)
+        Me.BtnDefaults.Location = New System.Drawing.Point(13, 222)
         Me.BtnDefaults.Name = "BtnDefaults"
         Me.BtnDefaults.Size = New System.Drawing.Size(61, 23)
-        Me.BtnDefaults.TabIndex = 11
+        Me.BtnDefaults.TabIndex = 13
         Me.BtnDefaults.Text = "Defaults"
         Me.BtnDefaults.UseVisualStyleBackColor = True
         '
@@ -202,11 +206,11 @@ Partial Class SettingsForm
         Me.CheckBox1.Checked = True
         Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(238, Byte))
-        Me.CheckBox1.Location = New System.Drawing.Point(85, 157)
+        Me.CheckBox1.Location = New System.Drawing.Point(81, 194)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(126, 19)
-        Me.CheckBox1.TabIndex = 8
-        Me.CheckBox1.Text = "Use corrections"
+        Me.CheckBox1.Size = New System.Drawing.Size(130, 19)
+        Me.CheckBox1.TabIndex = 10
+        Me.CheckBox1.Text = "Use calibrations"
         Me.CheckBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
@@ -222,7 +226,7 @@ Partial Class SettingsForm
         Me.TextBox8.Location = New System.Drawing.Point(165, 25)
         Me.TextBox8.Name = "TextBox8"
         Me.TextBox8.Size = New System.Drawing.Size(74, 20)
-        Me.TextBox8.TabIndex = 4
+        Me.TextBox8.TabIndex = 5
         '
         'Label12
         '
@@ -240,27 +244,63 @@ Partial Class SettingsForm
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.TextBox1)
         Me.GroupBox1.Controls.Add(Me.TextBox2)
+        Me.GroupBox1.Controls.Add(Me.TbL0a)
         Me.GroupBox1.Controls.Add(Me.TextBox3)
+        Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.TextBox4)
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.TextBox5)
+        Me.GroupBox1.Controls.Add(Me.TbL0b)
         Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.TextBox6)
         Me.GroupBox1.Controls.Add(Me.Label6)
+        Me.GroupBox1.Controls.Add(Me.Label9)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Location = New System.Drawing.Point(16, 51)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(262, 100)
-        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.Size = New System.Drawing.Size(262, 125)
+        Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Calibration values"
+        '
+        'TbL0a
+        '
+        Me.TbL0a.Location = New System.Drawing.Point(69, 96)
+        Me.TbL0a.Name = "TbL0a"
+        Me.TbL0a.Size = New System.Drawing.Size(50, 20)
+        Me.TbL0a.TabIndex = 4
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(205, 99)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(23, 13)
+        Me.Label10.TabIndex = 14
+        Me.Label10.Text = "mm"
+        '
+        'TbL0b
+        '
+        Me.TbL0b.Location = New System.Drawing.Point(149, 96)
+        Me.TbL0b.Name = "TbL0b"
+        Me.TbL0b.Size = New System.Drawing.Size(50, 20)
+        Me.TbL0b.TabIndex = 9
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(41, 99)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(22, 13)
+        Me.Label9.TabIndex = 9
+        Me.Label9.Text = "L0:"
         '
         'SettingsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(290, 220)
+        Me.ClientSize = New System.Drawing.Size(290, 257)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.TextBox8)
@@ -304,4 +344,8 @@ Partial Class SettingsForm
     Friend WithEvents TextBox8 As System.Windows.Forms.TextBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents TbL0a As System.Windows.Forms.TextBox
+    Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents TbL0b As System.Windows.Forms.TextBox
+    Friend WithEvents Label9 As System.Windows.Forms.Label
 End Class

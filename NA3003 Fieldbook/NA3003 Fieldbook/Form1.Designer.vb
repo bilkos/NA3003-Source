@@ -45,7 +45,7 @@ Partial Class Form1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 9)
+        Me.Label1.Location = New System.Drawing.Point(93, 9)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(66, 13)
         Me.Label1.TabIndex = 0
@@ -53,7 +53,9 @@ Partial Class Form1
         '
         'TbInput
         '
-        Me.TbInput.Location = New System.Drawing.Point(12, 25)
+        Me.TbInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TbInput.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(238, Byte))
+        Me.TbInput.Location = New System.Drawing.Point(93, 25)
         Me.TbInput.Name = "TbInput"
         Me.TbInput.ReadOnly = True
         Me.TbInput.Size = New System.Drawing.Size(236, 20)
@@ -66,14 +68,14 @@ Partial Class Form1
         Me.RtbKonzola.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RtbKonzola.BackColor = System.Drawing.SystemColors.MenuText
+        Me.RtbKonzola.BackColor = System.Drawing.Color.Black
         Me.RtbKonzola.Font = New System.Drawing.Font("Consolas", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(238, Byte))
         Me.RtbKonzola.ForeColor = System.Drawing.Color.DarkGray
         Me.RtbKonzola.Location = New System.Drawing.Point(12, 94)
         Me.RtbKonzola.Name = "RtbKonzola"
         Me.RtbKonzola.ReadOnly = True
-        Me.RtbKonzola.Size = New System.Drawing.Size(800, 376)
-        Me.RtbKonzola.TabIndex = 3
+        Me.RtbKonzola.Size = New System.Drawing.Size(800, 456)
+        Me.RtbKonzola.TabIndex = 10
         Me.RtbKonzola.TabStop = False
         Me.RtbKonzola.Text = resources.GetString("RtbKonzola.Text")
         '
@@ -84,11 +86,11 @@ Partial Class Form1
         'cmbTip
         '
         Me.cmbTip.FormattingEnabled = True
-        Me.cmbTip.Items.AddRange(New Object() {"Standard Report", "Calculated Report", "CSV", "CSV - Measure Only"})
+        Me.cmbTip.Items.AddRange(New Object() {"Calculated Report", "Standard Report", "CSV", "CSV - Measure Only"})
         Me.cmbTip.Location = New System.Drawing.Point(12, 63)
         Me.cmbTip.Name = "cmbTip"
         Me.cmbTip.Size = New System.Drawing.Size(126, 21)
-        Me.cmbTip.TabIndex = 2
+        Me.cmbTip.TabIndex = 1
         '
         'Label3
         '
@@ -104,91 +106,99 @@ Partial Class Form1
         Me.cbComma.Location = New System.Drawing.Point(335, 56)
         Me.cbComma.Name = "cbComma"
         Me.cbComma.Size = New System.Drawing.Size(115, 32)
-        Me.cbComma.TabIndex = 3
+        Me.cbComma.TabIndex = 4
         Me.cbComma.Text = "Comma as decimal"
         Me.cbComma.UseVisualStyleBackColor = True
         '
         'lblDataStatus
         '
         Me.lblDataStatus.AutoSize = True
+        Me.lblDataStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(238, Byte))
         Me.lblDataStatus.Location = New System.Drawing.Point(335, 28)
         Me.lblDataStatus.Name = "lblDataStatus"
-        Me.lblDataStatus.Size = New System.Drawing.Size(45, 13)
+        Me.lblDataStatus.Size = New System.Drawing.Size(52, 13)
         Me.lblDataStatus.TabIndex = 9
         Me.lblDataStatus.Text = "No data"
         '
         'BtnSettings
         '
+        Me.BtnSettings.BackColor = System.Drawing.Color.Transparent
         Me.BtnSettings.Image = Global.NA3003_Fieldbook.My.Resources.Resources.System_22px
         Me.BtnSettings.Location = New System.Drawing.Point(727, 56)
         Me.BtnSettings.Name = "BtnSettings"
         Me.BtnSettings.Size = New System.Drawing.Size(85, 32)
-        Me.BtnSettings.TabIndex = 10
+        Me.BtnSettings.TabIndex = 7
         Me.BtnSettings.Text = "Settings"
         Me.BtnSettings.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BtnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.BtnSettings.UseVisualStyleBackColor = True
+        Me.BtnSettings.UseVisualStyleBackColor = False
         '
         'btnHelp
         '
         Me.btnHelp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnHelp.BackColor = System.Drawing.Color.Transparent
         Me.btnHelp.Image = Global.NA3003_Fieldbook.My.Resources.Resources.float_24px
-        Me.btnHelp.Location = New System.Drawing.Point(679, 18)
+        Me.btnHelp.Location = New System.Drawing.Point(661, 18)
         Me.btnHelp.Name = "btnHelp"
-        Me.btnHelp.Size = New System.Drawing.Size(68, 32)
+        Me.btnHelp.Size = New System.Drawing.Size(73, 32)
         Me.btnHelp.TabIndex = 8
         Me.btnHelp.Text = "Help"
         Me.btnHelp.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.btnHelp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnHelp.UseVisualStyleBackColor = True
+        Me.btnHelp.UseVisualStyleBackColor = False
         '
         'btnAbout
         '
         Me.btnAbout.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAbout.BackColor = System.Drawing.Color.Transparent
         Me.btnAbout.Image = Global.NA3003_Fieldbook.My.Resources.Resources.Orb_info_16px
-        Me.btnAbout.Location = New System.Drawing.Point(753, 18)
+        Me.btnAbout.Location = New System.Drawing.Point(740, 18)
         Me.btnAbout.Name = "btnAbout"
-        Me.btnAbout.Size = New System.Drawing.Size(59, 32)
-        Me.btnAbout.TabIndex = 6
+        Me.btnAbout.Size = New System.Drawing.Size(72, 32)
+        Me.btnAbout.TabIndex = 9
         Me.btnAbout.Text = "About"
         Me.btnAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnAbout.UseVisualStyleBackColor = True
+        Me.btnAbout.UseVisualStyleBackColor = False
         '
         'BtnSave
         '
+        Me.BtnSave.BackColor = System.Drawing.Color.Transparent
+        Me.BtnSave.ForeColor = System.Drawing.SystemColors.ControlText
         Me.BtnSave.Image = Global.NA3003_Fieldbook.My.Resources.Resources.Disquette_18px
         Me.BtnSave.Location = New System.Drawing.Point(583, 56)
         Me.BtnSave.Name = "BtnSave"
-        Me.BtnSave.Size = New System.Drawing.Size(92, 32)
-        Me.BtnSave.TabIndex = 5
-        Me.BtnSave.Text = "Save to File"
+        Me.BtnSave.Size = New System.Drawing.Size(65, 32)
+        Me.BtnSave.TabIndex = 6
+        Me.BtnSave.Text = "Save"
         Me.BtnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BtnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.BtnSave.UseVisualStyleBackColor = True
+        Me.BtnSave.UseVisualStyleBackColor = False
         '
         'BtnCreate
         '
+        Me.BtnCreate.BackColor = System.Drawing.Color.Transparent
         Me.BtnCreate.Image = Global.NA3003_Fieldbook.My.Resources.Resources.Chalkboard2_21px
         Me.BtnCreate.Location = New System.Drawing.Point(456, 56)
         Me.BtnCreate.Name = "BtnCreate"
         Me.BtnCreate.Size = New System.Drawing.Size(121, 32)
-        Me.BtnCreate.TabIndex = 4
+        Me.BtnCreate.TabIndex = 5
         Me.BtnCreate.Text = "Create Fieldbook"
         Me.BtnCreate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BtnCreate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.BtnCreate.UseVisualStyleBackColor = True
+        Me.BtnCreate.UseVisualStyleBackColor = False
         '
         'BtnBrowse
         '
+        Me.BtnBrowse.BackColor = System.Drawing.Color.Transparent
         Me.BtnBrowse.Image = Global.NA3003_Fieldbook.My.Resources.Resources.Folder_22px
-        Me.BtnBrowse.Location = New System.Drawing.Point(254, 18)
+        Me.BtnBrowse.Location = New System.Drawing.Point(12, 13)
         Me.BtnBrowse.Name = "BtnBrowse"
         Me.BtnBrowse.Size = New System.Drawing.Size(75, 32)
         Me.BtnBrowse.TabIndex = 0
         Me.BtnBrowse.Text = "Browse"
         Me.BtnBrowse.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BtnBrowse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.BtnBrowse.UseVisualStyleBackColor = True
+        Me.BtnBrowse.UseVisualStyleBackColor = False
         '
         'cbCalibration
         '
@@ -196,7 +206,7 @@ Partial Class Form1
         Me.cbCalibration.Location = New System.Drawing.Point(144, 56)
         Me.cbCalibration.Name = "cbCalibration"
         Me.cbCalibration.Size = New System.Drawing.Size(75, 32)
-        Me.cbCalibration.TabIndex = 11
+        Me.cbCalibration.TabIndex = 2
         Me.cbCalibration.Text = "Calibration"
         Me.cbCalibration.UseVisualStyleBackColor = True
         '
@@ -206,7 +216,7 @@ Partial Class Form1
         Me.cb1Staff.Location = New System.Drawing.Point(225, 56)
         Me.cb1Staff.Name = "cb1Staff"
         Me.cb1Staff.Size = New System.Drawing.Size(104, 32)
-        Me.cb1Staff.TabIndex = 12
+        Me.cb1Staff.TabIndex = 3
         Me.cb1Staff.Text = "Single rod meas."
         Me.cb1Staff.UseVisualStyleBackColor = True
         '
@@ -214,7 +224,7 @@ Partial Class Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(824, 482)
+        Me.ClientSize = New System.Drawing.Size(824, 562)
         Me.Controls.Add(Me.cb1Staff)
         Me.Controls.Add(Me.cbCalibration)
         Me.Controls.Add(Me.BtnSettings)

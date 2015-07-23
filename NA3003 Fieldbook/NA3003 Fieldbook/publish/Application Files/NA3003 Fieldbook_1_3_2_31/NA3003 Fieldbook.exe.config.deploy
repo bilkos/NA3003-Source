@@ -43,6 +43,12 @@
             <setting name="LastMethod" serializeAs="String">
                 <value />
             </setting>
+            <setting name="LataAL0" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="LataBL0" serializeAs="String">
+                <value>0</value>
+            </setting>
         </NA3003_Fieldbook.My.MySettings>
     </userSettings>
 </configuration>

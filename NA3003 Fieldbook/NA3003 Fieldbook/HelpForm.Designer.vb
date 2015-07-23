@@ -41,7 +41,7 @@ Partial Class HelpForm
         Me.RichTextBox1.Location = New System.Drawing.Point(12, 41)
         Me.RichTextBox1.Name = "RichTextBox1"
         Me.RichTextBox1.ReadOnly = True
-        Me.RichTextBox1.Size = New System.Drawing.Size(563, 459)
+        Me.RichTextBox1.Size = New System.Drawing.Size(663, 459)
         Me.RichTextBox1.TabIndex = 0
         Me.RichTextBox1.TabStop = False
         Me.RichTextBox1.Text = ""
@@ -49,7 +49,7 @@ Partial Class HelpForm
         'BtnCloseHelp
         '
         Me.BtnCloseHelp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BtnCloseHelp.Location = New System.Drawing.Point(500, 12)
+        Me.BtnCloseHelp.Location = New System.Drawing.Point(600, 12)
         Me.BtnCloseHelp.Name = "BtnCloseHelp"
         Me.BtnCloseHelp.Size = New System.Drawing.Size(75, 23)
         Me.BtnCloseHelp.TabIndex = 1
@@ -70,7 +70,7 @@ Partial Class HelpForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(584, 512)
+        Me.ClientSize = New System.Drawing.Size(684, 512)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.BtnCloseHelp)
         Me.Controls.Add(Me.RichTextBox1)

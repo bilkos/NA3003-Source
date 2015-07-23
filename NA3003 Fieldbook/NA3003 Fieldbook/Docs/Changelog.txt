@@ -55,16 +55,34 @@ Version 1.2.0.17
 - Changed "GURS Report" to "Calculated Report"
 
 Version 1.3.0.20
-- Added calculation with temperature correction for 2 rods for method "Calculated Report"
-- Added settings form to enter and save rod calibration values between app sessions
-- Added AI for recognizing start and running rod ID + rod switch when repeated measurements
+- Added calculation with temperature correction for 2 staffs for method "Calculated Report"
+- Added settings form to enter and save staff calibration values between app sessions
+- Added AI for recognizing start and running staff ID + staff switch when repeated measurements
 
-Version 1.3.1.24
+Version 1.3.1.25
 - Fixed report header for "Calculated Report"
 - Added option to switch the use of calibration on main window
-- Added setting for one rod measurement
-- Added option to calculate measurements with one rod only
-- Additional header info for "Calculated Report" to show rod calibrations used
+- Added setting for one staff measurement
+- Added option to calculate measurements with one staff only
+- Additional header info for "Calculated Report" to show staff calibrations used
 - Fixed reverting settings to default values
-- Changed default values for rod settings
+- Changed default values for staff settings
 - Saving of last used conversion method to use next time we run the app
+- Small interface design changes
+
+Version 1.3.1.26
+- Added checking if it's BF or BFFB method and calculate GrHt accordingly
+
+Version 1.3.2.27
+- Fixed BF method when using 2 leveling staffs 
+  * (now it properly switches from staff A to B when going to next station)
+- Added "l0" value to staff calibration values
+- Changed height reading calculation formula to use "l0"
+- Added check if in case no staff id is in raw data (user can still continue calculation without corrections)
+- If no staff id, then we also switch to single staff measurement
+
+Version 1.3.2.28
+- Fixed formula for staff height reading calculation with calibration
+
+Version 1.3.2.31
+- Minor fixes in fieldbook design for "Calculated Report"
