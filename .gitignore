@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/NA3003 Fieldbook/NA3003 Fieldbook/bin
+/NA3003 Fieldbook/NA3003 Fieldbook/publish
+/NA3003 Transfer/NA3003 Transfer/bin
+/NA3003 Transfer/NA3003 Transfer/publish
