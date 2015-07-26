@@ -26,7 +26,7 @@
     <ProductName>NA3003 Fieldbook</ProductName>
     <PublisherName>2B geoinformatika</PublisherName>
     <SuiteName>NA3003 Transfer</SuiteName>
-    <ApplicationRevision>32</ApplicationRevision>
+    <ApplicationRevision>40</ApplicationRevision>
     <ApplicationVersion>1.3.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -217,6 +217,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="NA3003-icon4.ico" />
+    <None Include="Resources\Disquette_16px.png" />
+    <None Include="Resources\Arrow-right_16px.png" />
+    <None Include="Resources\Folder_16px.png" />
+    <None Include="Resources\Power_21px.png" />
     <None Include="Resources\System_22px.png" />
     <None Include="Resources\float_24px.png" />
     <None Include="Resources\Orb-info-16px.png" />

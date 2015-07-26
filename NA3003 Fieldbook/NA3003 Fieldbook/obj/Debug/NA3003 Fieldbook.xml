@@ -22,7 +22,17 @@ NA3003 Fieldbook
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="P:NA3003_Fieldbook.My.Resources.Resources.Arrow_right_16px">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:NA3003_Fieldbook.My.Resources.Resources.Chalkboard2_21px">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:NA3003_Fieldbook.My.Resources.Resources.Disquette_16px">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
@@ -37,12 +47,22 @@ NA3003 Fieldbook
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="P:NA3003_Fieldbook.My.Resources.Resources.Folder_16px">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:NA3003_Fieldbook.My.Resources.Resources.Folder_22px">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
 <member name="P:NA3003_Fieldbook.My.Resources.Resources.Orb_info_16px">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:NA3003_Fieldbook.My.Resources.Resources.Power_21px">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>

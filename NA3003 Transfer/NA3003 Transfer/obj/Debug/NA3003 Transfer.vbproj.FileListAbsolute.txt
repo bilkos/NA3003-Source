@@ -13,3 +13,19 @@ X:\VS Projects\NA3003 Transfer\NA3003 Transfer\bin\Debug\NA3003 Transfer.applica
 X:\VS Projects\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.exe.manifest
 X:\VS Projects\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.application
 X:\VS Projects\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003_Transfer.AboutBox1.resources
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\bin\Debug\NA3003 Transfer.exe.config
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\bin\Debug\NA3003 Transfer.exe.manifest
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\bin\Debug\NA3003 Transfer.application
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\bin\Debug\NA3003 Transfer.exe
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\bin\Debug\NA3003 Transfer.pdb
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\bin\Debug\NA3003 Transfer.xml
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.vbprojResolveAssemblyReference.cache
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003_Transfer.AboutBox1.resources
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003_Transfer.frmMain.resources
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003_Transfer.Resources.resources
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.vbproj.GenerateResource.Cache
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.exe.manifest
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.application
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.exe
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.xml
+E:\bitbucket\NA3003 Source\NA3003 Transfer\NA3003 Transfer\obj\Debug\NA3003 Transfer.pdb

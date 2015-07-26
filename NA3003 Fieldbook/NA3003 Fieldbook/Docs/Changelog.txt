@@ -5,59 +5,42 @@ Company: 2B geoinformatika, d.o.o.
 Ljubljana, Slovenia
 Copyright 2015
 ***********************************
-Version 1.0.0.0
-- First release with alpha coding
+Version 1.3.2.40
+- Updated HelpGuide.rtf
 
-Version 1.1.0.1
-- Coded first routines for raw conversion
+Version 1.3.2.39
+- Code 30, Info 3 & 4: Conditions for traffic and weather are now also printed as text
 
-Version 1.1.0.5
-- Added combobox with options to choose from 2 different export standards (Standard, Gurs)
+Version 1.3.2.38
+- Added toolstrip menu on top
+- Moved Open and Save code to separate subs, so they can be called from elsewhere too
+- Staff SN settings options and output in report added
+- "Import" and "Export" option for staff calibration settings added
 
-Version 1.1.0.6
-- Corrections to output format for both standards
+Version 1.3.2.36
+- Added output of original height reading before calculated
+- Fixed GrHt calculation formula
+- Fixed output of GrHt
 
-Version 1.1.0.7
-- Fixed starting strings of fieldbook output
+Version 1.3.2.32
+- Fieldbook codes info order changed (conditions are before weather)
 
-Version 1.1.0.8
-- Added changelog to About window
+Version 1.3.2.31
+- Minor fixes in fieldbook design for "Calculated Report"
 
-Version 1.1.0.9
-- Added comma-separated-value file export (*.csv)
-- Added option to switch between dot and comma decimal separators
+Version 1.3.2.28
+- Fixed formula for staff height reading calculation with calibration
 
-Version 1.1.0.10
-- Fixed some output strings
-- Changed names of fieldbook export types to more recognizable names
-- Added some text to welcome message in console
+Version 1.3.2.27
+- Fixed BF method when using 2 leveling staffs 
+  * (now it properly switches from staff A to B when going to next station)
+- Added "l0" value to staff calibration values
+- Changed height reading calculation formula to use "l0"
+- Added check if in case no staff id is in raw data (user can still continue calculation without corrections)
+- If no staff id, then we also switch to single staff measurement
 
-Version 1.1.0.12
-- Added simple help guide in Docs/HelpGuide.rtf
-- Linked help guide in HelpForm.vb in app through "Help" button
-- Fixed some inital fbk stings
-- Fixed design... window is now sizable, with min size defined at 840; 480 to prevent content cutoff
-
-Version 1.1.0.13
-- Added "CSV File - Measure" export type
-
-Version 1.1.0.14
-- Added label for easier identification when file is saved
-- Added MsgBox to notify user after the conversion is done
-- Added MsgBox to notify after file is saved
-
-Version 1.2.0.16
-- New measurement calculation while converting
-  * if you choose "Gurs Report" it will also calculate GrHtIzr attribute
-
-Version 1.2.0.17
-- Added calculation of staff reading for temperature diff correction
-- Changed "GURS Report" to "Calculated Report"
-
-Version 1.3.0.20
-- Added calculation with temperature correction for 2 staffs for method "Calculated Report"
-- Added settings form to enter and save staff calibration values between app sessions
-- Added AI for recognizing start and running staff ID + staff switch when repeated measurements
+Version 1.3.1.26
+- Added checking if it's BF or BFFB method and calculate GrHt accordingly
 
 Version 1.3.1.25
 - Fixed report header for "Calculated Report"
@@ -70,19 +53,58 @@ Version 1.3.1.25
 - Saving of last used conversion method to use next time we run the app
 - Small interface design changes
 
-Version 1.3.1.26
-- Added checking if it's BF or BFFB method and calculate GrHt accordingly
+Version 1.3.0.20
+- Added calculation with temperature correction for 2 staffs for method "Calculated Report"
+- Added settings form to enter and save staff calibration values between app sessions
+- Added AI for recognizing start and running staff ID + staff switch when repeated measurements
 
-Version 1.3.2.27
-- Fixed BF method when using 2 leveling staffs 
-  * (now it properly switches from staff A to B when going to next station)
-- Added "l0" value to staff calibration values
-- Changed height reading calculation formula to use "l0"
-- Added check if in case no staff id is in raw data (user can still continue calculation without corrections)
-- If no staff id, then we also switch to single staff measurement
+Version 1.2.0.17
+- Added calculation of staff reading for temperature diff correction
+- Changed "GURS Report" to "Calculated Report"
 
-Version 1.3.2.28
-- Fixed formula for staff height reading calculation with calibration
+Version 1.2.0.16
+- New measurement calculation while converting
+  * if you choose "Gurs Report" it will also calculate GrHtIzr attribute
 
-Version 1.3.2.31
-- Minor fixes in fieldbook design for "Calculated Report"
+Version 1.1.0.14
+- Added label for easier identification when file is saved
+- Added MsgBox to notify user after the conversion is done
+- Added MsgBox to notify after file is saved
+
+Version 1.1.0.13
+- Added "CSV File - Measure" export type
+
+Version 1.1.0.12
+- Added simple help guide in Docs/HelpGuide.rtf
+- Linked help guide in HelpForm.vb in app through "Help" button
+- Fixed some inital fbk stings
+- Fixed design... window is now sizable, with min size defined at 840; 480 to prevent content cutoff
+
+Version 1.1.0.10
+- Fixed some output strings
+- Changed names of fieldbook export types to more recognizable names
+- Added some text to welcome message in console
+
+Version 1.1.0.9
+- Added comma-separated-value file export (*.csv)
+- Added option to switch between dot and comma decimal separators
+
+Version 1.1.0.8
+- Added changelog to About window
+
+Version 1.1.0.7
+- Fixed starting strings of fieldbook output
+
+Version 1.1.0.6
+- Corrections to output format for both standards
+
+Version 1.1.0.5
+- Added combobox with options to choose from 2 different export standards (Standard, Gurs)
+
+Version 1.1.0.1
+- Coded first routines for raw conversion
+
+Version 1.0.0.0
+- First release with alpha coding
+
+

@@ -36,3 +36,4 @@ E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fi
 E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.exe
 E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.xml
 E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.pdb
+E:\bitbucket\NA3003 Source\NA3003 Fieldbook\NA3003 Fieldbook\obj\Debug\NA3003 Fieldbook.vbprojResolveAssemblyReference.cache
